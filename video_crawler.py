@@ -5,18 +5,6 @@ import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
 
-def profile_generator(file_name: str='userlist.txt'):
-    ''' yields generator object of profile links '''
-    ''' Discontinued - Unable to crawl profile pages as scripts are blocked from loading'''
-    # open profile list
-    with open(file_name, 'r') as file:
-        users = file.read().split('\n')
-
-    # visit each users profile and yield profile link
-    for user in users:
-        profile_url = f'https://www.tiktok.com/@{user}'
-        yield profile_url
-
 def video_list_generator(file_name: str='videolist.txt'):
     ''' yields generator object of video links '''
     # open video list and yield each link
@@ -57,7 +45,7 @@ def main():
         for index, video in enumerate(soup.find_all('video')):
             resource_link = video['src']
             print(f'\t[+] Now downloading: {resource_link}')
-            # download_video(f'tiktok_video_{video_id}_{index}.mp4', resource_link) 
+            download_video(f'tiktok_video_{video_id}_{index}.mp4', resource_link) 
 
 if __name__ == '__main__':
     t1 = datetime.now()
