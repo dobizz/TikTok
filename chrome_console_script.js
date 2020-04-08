@@ -4,7 +4,7 @@
   
   // Loop through all links
     for (index in links) {
-        var url = videos[index].href;
+        var url = links[index].href;
         
         // loop through all links and check for videos
         if (url.indexOf('video') > -1) {
