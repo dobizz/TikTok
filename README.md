@@ -48,6 +48,10 @@ Python3 based script to go through the video urls in 'videolist.txt' and downloa
 
 ### pips
 ```
+pip install -r requirements.txt
+```
+or manually install each package
+```
 pip install beautifulsoup4
 pip install lxml
 ```
