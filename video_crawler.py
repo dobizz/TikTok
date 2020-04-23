@@ -126,12 +126,35 @@ def download_video(file_name: str, url: str) -> bool:
 
     return status
 
+def purge_duplicate_links(file_name: str = 'videolist.txt') -> tuple:
+    ''' remove duplicate links from video list file '''
+    before = after = 0
+    try:
+        print('Starting cleanup')
+        with open('videolist.txt', 'r+') as file:
+            links = file.readlines()
+            before = len(links)
+            print(f'Before cleaning: {before} links')
+            links = sorted(set((link.strip() for link in links)))
+            after = len(links)
+            print(f'After cleaning: {after} links')
+            file.seek(0)
+            file.write('\n'.join(links))
+            print('Writing changes')
+            file.truncate()
+        print('Cleanup completed')
+
+    except:
+        print('Cleanup aborted')
+    return (before, after)
 
 def main() -> None:
     ''' main program sequence '''
     # creates videos folder if not present
     if not os.path.exists('videos'):
         os.makedirs('videos')
+
+    print(purge_duplicate_links())
 
     completed_videos = get_completed()
 
