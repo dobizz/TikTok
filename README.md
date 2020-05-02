@@ -44,15 +44,9 @@ Python3 based script to go through the video urls in 'videolist.txt' and downloa
 
 ### Work In Progress
 - Add rotating proxies.
-- Add threading support to make downloads faster, if you have the bandwidth.
+- Profile crawler
 
 ### pips
 ```
 pip install -r requirements.txt
-```
-or manually install each package
-```
-pip install beautifulsoup4
-pip install lxml
-pip install requests
 ```
