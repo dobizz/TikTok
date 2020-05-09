@@ -1,7 +1,7 @@
 # TikTok
 
 # Instructions
-- Open in Google Chrome the TikTok profile page of interest
+- Open in Google Chrome (or in any web browswer with JavaScript enabled) the TikTok profile page of interest
 - Press F12 and go to the console tab.
 - Copy the contents of chrome_console_script.js, paste to console, and run
 ```
@@ -43,10 +43,15 @@ JavaScript to run in Google Chrome console in order to generate the video urls a
 Python3 based script to go through the video urls in 'videolist.txt' and download to ./videos/[tiktok_username] directory.
 
 ### Work In Progress
-- Add rotating proxies.
-- Profile crawler
+- [x] Implement Concurrency
+- [] Add rotating proxies
+- [] Profile crawler
+- [] Trend crawler
 
-### pips
+### Install Packages
 ```
 pip install -r requirements.txt
 ```
+
+### Donate BTC
+![1zdraxHPQfZ8wvpMXt2VYhnGwmkLCf7UL](https://i.imgur.com/PhC1zJG.png)
