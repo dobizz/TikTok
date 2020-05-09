@@ -44,9 +44,9 @@ Python3 based script to go through the video urls in 'videolist.txt' and downloa
 
 ### Work In Progress
 - [x] Implement Concurrency
-- [] Add rotating proxies
-- [] Profile crawler
-- [] Trend crawler
+- [ ] Add rotating proxies
+- [ ] Profile crawler
+- [ ] Trend crawler
 
 ### Install Packages
 ```
@@ -54,5 +54,8 @@ pip install -r requirements.txt
 ```
 
 ### Donate BTC
-![1zdraxHPQfZ8wvpMXt2VYhnGwmkLCf7UL](https://i.imgur.com/PhC1zJG.png)
+
+<p align="left">
+<img width="300" height="300" src="https://i.imgur.com/PhC1zJG.png">
+</p>
 1zdraxHPQfZ8wvpMXt2VYhnGwmkLCf7UL
