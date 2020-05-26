@@ -1,52 +1,69 @@
-# TikTok
+# TikTok API Reverse Engineering
+Initial commit as old code is deprecated because urls now require anti-spam parameters and signatures.
 
 # Instructions
-- Open in Google Chrome (or in any web browswer with JavaScript enabled) the TikTok profile page of interest
-- Press F12 and go to the console tab.
-- Copy the contents of chrome_console_script.js, paste to console, and run
+Sample Implementation given in lower part of api.py
+
+To download all videos of a username, change the value of username
 ```
-(function() {
-    var links = $$('a');
-    var video_urls = [];
-  
-  // Loop through all links
-    for (index in links) {
-        var url = links[index].href;
+        ###############################
+        # change target username here #
+        ###############################
+        username = 'ENTER_USERNAME_HERE'
+        ###############################
+        details = tt.getUserDetails(username)
+```
+
+To download all trending videos, just change this line from
+```
+        # change videos to number of videos you want to return
+        reply = tt.getUserTikToks(_id, videos)
+```
+
+to this, where videos is the number of videos you would like to get
+```
+        # change videos to number of videos you want to return
+        reply = tt.getTrending(videos)
+```
+
+### api.py
+```
+class TikTok:
+    def __init__(self, path: str):
+        pass
         
-        // loop through all links and check for videos
-        if (url.indexOf('video') > -1) {
-            // store links in variable
-            video_urls.push(url);
-            // output to console
-            console.log(url);
-        }
-    }
-    // create text document and save links
-    var textDoc = document.createElement('a');
-
-    textDoc.href = 'data:attachment/text,' + encodeURI(video_urls.join('\n'));
-    textDoc.target = '_blank';
-    textDoc.download = 'videolist.txt';
-    textDoc.click();
-})();
-```
-- This will download the 'videolist.txt', copy this text file to the same driectory as video_crawler.py
-- Run video_crawler.py and wait for script to finish.
-```
-python video_crawler.py
+    def _signURL(self, url) -> str:
+        pass
+        
+    def getUserDetails(self, username) -> dict():
+        pass
+    
+    def getTrending(self, count: int) -> list(): 
+        pass
+        
+    def getUserTikToks(self, userid, count: int) -> list():
+        pass
 ```
 
-## chrome_console_script.js
-JavaScript to run in Google Chrome console in order to generate the video urls and save to 'videolist.txt' for a particular profile.
-
-## video_crawler.py
-Python3 based script to go through the video urls in 'videolist.txt' and download to ./videos/[tiktok_username] directory.
+### robots.py
+```
+    def getAllowedAgents() -> list():
+        pass
+```
 
 ### Work In Progress
-- [x] Implement Concurrency
+- [x] Integrate Selenium/Chrome Webdriver
+- [x] Partial concurrency
+- [x] robots.py - Reads User-Agents from https://www.tiktok.com/robots.txt
+- [x] Function: _signURL(url:str) -> str
+- [x] Function: getUserDetails(username:str) -> dict()
+- [x] Function: getTrending(count: int) -> list(dict())
+- [x] Function: getUserTiktoks(id:int, count:int) -> list(dict())
+- [ ] Complete all API functions
 - [ ] Add rotating proxies
 - [ ] Profile crawler
 - [ ] Trend crawler
+- [ ] Full concurrency
 
 ### Install Packages
 ```
