@@ -2,4 +2,5 @@ beautifulsoup4
 lxml
 requests
 selenium
+aiohttp
 aiofiles
