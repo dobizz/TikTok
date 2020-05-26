@@ -26,6 +26,17 @@ to this, where videos is the number of videos you would like to get
         reply = tt.getTrending(videos)
 ```
 
+# Requirements
+## Selenium
+Learn more about Selenium here https://pypi.org/project/selenium/
+```
+pip install selenium
+```
+
+## Chrome Driver
+Download ChromeDriver here https://chromedriver.chromium.org/downloads
+
+## Code Structure
 ### api.py
 ```
 class TikTok:
@@ -47,11 +58,11 @@ class TikTok:
 
 ### robots.py
 ```
-    def getAllowedAgents() -> list():
-        pass
+def getAllowedAgents() -> list():
+    pass
 ```
 
-### Work In Progress
+## Work In Progress
 - [x] Integrate Selenium/Chrome Webdriver
 - [x] Partial concurrency
 - [x] robots.py - Reads User-Agents from https://www.tiktok.com/robots.txt
@@ -65,13 +76,13 @@ class TikTok:
 - [ ] Trend crawler
 - [ ] Full concurrency
 
-### Install Packages
+## Install Packages
 ```
 pip install -r requirements.txt
 ```
 
-### Donate BTC
-
+## Donate BTC
+Find my code helpful? Some Satoshis would be nice. Thanks :)
 <p align="left">
 <img width="300" height="300" src="https://i.imgur.com/PhC1zJG.png">
 </p>
