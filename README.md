@@ -2,28 +2,9 @@
 Initial commit as old code is deprecated because urls now require anti-spam parameters and signatures.
 
 # Instructions
-Sample Implementation given in lower part of api.py
-
-To download all videos of a username, change the value of username
+Execute run.py, downloaded files will be placed in ./videos/[username]
 ```
-        ###############################
-        # change target username here #
-        ###############################
-        username = 'ENTER_USERNAME_HERE'
-        ###############################
-        details = tt.getUserDetails(username)
-```
-
-To download all trending videos, just change this line from
-```
-        # change videos to number of videos you want to return
-        reply = tt.getUserTikToks(_id, videos)
-```
-
-to this, where videos is the number of videos you would like to get
-```
-        # change videos to number of videos you want to return
-        reply = tt.getTrending(videos)
+python run.py
 ```
 
 # Requirements
@@ -63,9 +44,9 @@ def getAllowedAgents() -> list():
 ```
 
 ## Work In Progress
+### Features
 - [x] Integrate Selenium/Chrome Webdriver
 - [x] Partial concurrency
-- [x] robots.py - Reads User-Agents from https://www.tiktok.com/robots.txt
 - [x] Function: _signURL(url:str) -> str
 - [x] Function: getUserDetails(username:str) -> dict()
 - [x] Function: getTrending(count: int) -> list(dict())
@@ -75,6 +56,11 @@ def getAllowedAgents() -> list():
 - [ ] Profile crawler
 - [ ] Trend crawler
 - [ ] Full concurrency
+
+### Files
+- [ ] api.py - TikTok API
+- [x] robots.py - Reads User-Agents from https://www.tiktok.com/robots.txt
+- [ ] run.py
 
 ## Install Packages
 ```
