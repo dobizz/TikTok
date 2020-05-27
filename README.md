@@ -6,7 +6,6 @@ Execute run.py, downloaded files will be placed in ./videos/[username]
 ```
 python run.py
 ```
-![](images/example_run.png)
 
 # Requirements
 ## Selenium
