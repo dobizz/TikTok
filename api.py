@@ -19,8 +19,11 @@ class TikTok:
         # self.UserAgent = 'Twitterbot'
         print(f'User-Agent: {self.UserAgent}')
 
-        # set default webdriver path
-        self.driver_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'chromedriver.exe') if path is None else path 
+        executable = 'chromedriver'
+        if os.name == 'nt':
+        	executable += '.exe'
+	# set default webdriver path	
+        self.driver_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), executable) if path is None else path 
 
         # set chrome options
         self.chrome_options = webdriver.ChromeOptions()
