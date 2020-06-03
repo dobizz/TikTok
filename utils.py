@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os
 import time
+import stat
 import platform
 import requests
 from lxml import html
@@ -78,10 +79,17 @@ def download_chromedriver(release=Release.STABLE) -> None:
         print(f'Extracting: {filename}\n')
         zip.printdir()
         zip.extractall()
-        print('\nDone!\n')
+
+    # set file permissions for Linux/Mac
+    if sys_platform != 'Windows':
+        # chmod 774 chromedriver
+        os.chmod(executable, stat.S_IRWXU | stat.S_IRWXG | stat.S_IROTH)
 
     # delete zip file
     os.remove(filename)
+
+    print('\nDone!\n')
+
 
 if __name__ == '__main__':
     download_chromedriver()
