@@ -18,6 +18,7 @@ pip install selenium
 ## Chrome Driver
 Download ChromeDriver here https://chromedriver.chromium.org/downloads
 
+You will need to redownload ChromeDriver if your installed version of chrome is newer than the provided version.
 ## Code Structure
 ### api.py
 ```
