@@ -8,6 +8,7 @@ import aiohttp
 import aiofiles
 from api import TikTok
 from robots import getAllowedAgents
+from utils import download_chromedriver, has_chromedriver, Release
 
 
 DOWNLOADS_BASE_DIR = './videos'
@@ -181,6 +182,11 @@ async def scrape(mode, username: str=None, count: int=0, likes: int=0, views: in
 
 if __name__ == '__main__':
     assert sys.version_info >= (3, 6), 'Python 3.6+ required.'
+
+    # check if chromedriver is present and download if needed
+    if not has_chromedriver():
+        # change to Release.BETA to use beta releases
+        download_chromedriver(Release.STABLE)
 
     # default arguments
     mode = Scrape.TRENDING
