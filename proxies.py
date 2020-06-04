@@ -30,14 +30,3 @@ def get_my_ip() -> str:
     assert reply.status_code == 200
 
     return reply.text
-
-
-if __name__ == '__main__':
-
-    proxy = iter_random_proxy()
-
-    # generate 10 random proxies
-    for x in range(10):
-        print(next(proxy))
-
-    print(get_my_ip())
