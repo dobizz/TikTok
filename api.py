@@ -4,7 +4,9 @@ import sys
 import json
 import random
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from robots import getAllowedAgents
+from proxies import fetch_proxies, get_my_ip
 
 
 class TikTok:
@@ -13,20 +15,43 @@ class TikTok:
     # Get Allow: / from robots.txt
     USER_AGENTS = getAllowedAgents()
 
-    def __init__(self, path: str=None):
+    def __init__(self, path: str=None, proxify: bool=False):
         # select random UserAgent from robots.txt
         self.UserAgent = random.choice(TikTok.USER_AGENTS)
+
         # self.UserAgent = 'Twitterbot'
         print(f'User-Agent: {self.UserAgent}')
 
+        # show current ip
+        my_ip = get_my_ip()
+        print(f'IP Address: {my_ip}')
+
+        # configure proxy
+        if proxify:
+            new_proxy = fetch_proxies()[0]
+            proxy_host = new_proxy['ip']
+            proxy_port = int(new_proxy['port'])
+            proxy = f'{proxy_host}:{proxy_port}'
+            print(f'Using proxy: {proxy}')
+
+            webdriver.DesiredCapabilities.CHROME['proxy'] = {
+                'httpProxy': proxy,
+                'ftpProxy': proxy,
+                'sslProxy': proxy,
+                'proxyType': 'MANUAL',
+            }
+
+        # define chromedriver executable
         executable = 'chromedriver'
         if os.name == 'nt':
         	executable += '.exe'
-	# set default webdriver path	
+
+        # set default webdriver path	
         self.driver_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), executable) if path is None else path 
 
         # set chrome options
-        self.chrome_options = webdriver.ChromeOptions()
+        self.chrome_options = Options()
+        self.chrome_options.page_load_strategy = 'none'
         self.chrome_options.add_argument('--ignore-certificate-errors')
         self.chrome_options.add_argument('--ignore-certificate-errors-spki-list')
         self.chrome_options.add_argument("--ignore-ssl-errors")
@@ -73,10 +98,7 @@ class TikTok:
             self.verifyFp = self.driver.get_cookie('s_v_web_id')['value']
 
         # execute JS in browser sign url
-        script = '''
-            let t = {};
-            webpackJsonp.filter(x => typeof x[1]['duD4'] === "function")[0][1].duD4(null, t);
-            return t.sign({url: "''' + url +'''"});;'''    
+        script = 'return window.byted_acrawler.sign({ url: "' + url + '" });'
         signature = self.driver.execute_script(script)
 
         return signature

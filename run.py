@@ -71,7 +71,7 @@ async def download_video(session, file_name, username, video_id, video_url) -> b
 
 async def scrape(mode, username: str=None, count: int=0, likes: int=0, views: int=0, shares: int=0, comments: int=0):
     ''' general scrape method '''
-    tt = TikTok()
+    tt = TikTok(proxify=False)
 
     if mode == Scrape.TRENDING:
         # change videos to number of videos you want to return

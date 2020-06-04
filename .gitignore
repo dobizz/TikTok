@@ -1,3 +1,6 @@
+# windows executables
+*.exe
+
 # project files
 videos/
 *.mp4
