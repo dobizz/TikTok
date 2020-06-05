@@ -4,18 +4,20 @@ Initial commit as old code is deprecated because urls now require anti-spam para
 # Instructions
 
 ## How to install
-![](images/example_installation.gif)
 ```
 git clone https://github.com/dobizz/TikTok.git
+cd TikTok
 pip3 install -r requirements.txt
 ```
+![](images/example_installation.gif)
+
 ## How to run
 Execute run.py, chromedriver will be automatically downloaded.
 Downloaded video files will be placed in ./videos/[username]
 ```
 python3 run.py
 ```
-![](images/example_run.png)
+![](images/example_run.gif)
 
 # Requirements
 ## Selenium
