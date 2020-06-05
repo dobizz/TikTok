@@ -2,9 +2,18 @@
 Initial commit as old code is deprecated because urls now require anti-spam parameters and signatures.
 
 # Instructions
-Execute run.py, downloaded files will be placed in ./videos/[username]
+
+## How to install
+![](images/example_installation.gif)
 ```
-python run.py
+git clone https://github.com/dobizz/TikTok.git
+pip3 install -r requirements.txt
+```
+## How to run
+Execute run.py, chromedriver will be automatically downloaded.
+Downloaded video files will be placed in ./videos/[username]
+```
+python3 run.py
 ```
 ![](images/example_run.png)
 
@@ -12,7 +21,7 @@ python run.py
 ## Selenium
 Learn more about Selenium here https://pypi.org/project/selenium/
 ```
-pip install selenium
+pip3 install selenium
 ```
 
 ## Chrome Driver
@@ -63,11 +72,8 @@ def getAllowedAgents() -> list():
 - [ ] api.py - TikTok API
 - [x] robots.py - Reads User-Agents from https://www.tiktok.com/robots.txt
 - [ ] run.py
-
-## Install Packages
-```
-pip install -r requirements.txt
-```
+- [x] utils.py - Utilities for downloading and updating ChromeDriver
+- [x] proxies.py - Module for proxies and IP addresses
 
 ## Donate BTC
 Find my code helpful? Some Satoshis would be nice. Thanks :)
