@@ -186,7 +186,8 @@ if __name__ == '__main__':
     # check if chromedriver is present and download if needed
     if not has_chromedriver():
         # change to Release.BETA to use beta releases
-        download_chromedriver(Release.STABLE)
+        # change to Release.STABLE to use stable releases
+        download_chromedriver(Release.AUTO_DETECT)
 
     # default arguments
     mode = Scrape.TRENDING

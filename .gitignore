@@ -1,3 +1,10 @@
+# compressed files
+*.zip
+*.tar
+*.gz
+*.7z
+*.rar
+
 # windows executables
 *.exe
 
