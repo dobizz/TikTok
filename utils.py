@@ -109,8 +109,14 @@ def check_system_chrome_version() -> str:
 
     # Windows
     if sys_platform == 'Windows':
-        cmd = 'dir /B/AD "C:\Program Files (x86)\Google\Chrome\Application\"|findstr /R /C:"^[0-9].*\..*[0-9]$"'
-        version = subprocess.check_output(cmd, shell=True).decode().strip()
+        # Try searching for 32-bit installation
+        try:
+            cmd = 'dir /B/AD "C:\Program Files (x86)\Google\Chrome\Application\"|findstr /R /C:"^[0-9].*\..*[0-9]$"'
+            version = subprocess.check_output(cmd, shell=True).decode().strip()
+        # Try searching for 64-bit installation
+        except:
+            cmd = 'dir /B/AD "C:\Program Files\Google\Chrome\Application\"|findstr /R /C:"^[0-9].*\..*[0-9]$"'
+            version = subprocess.check_output(cmd, shell=True).decode().strip()
     # Linux/Mac
     else:
         cmd = 'google-chrome --version'
