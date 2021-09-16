@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 import os
 import re
 import time
@@ -11,50 +11,22 @@ from zipfile import ZipFile
 from urllib.parse import urlparse, urlunparse
 
 
-class Release:
-    AUTO_DETECT = 0
-    STABLE = 1
-    BETA = 2
-
-
-
 def has_chromedriver() -> bool:
     '''check if chromedriver is present in current directory'''
     executable = 'chromedriver.exe' if platform.system() == 'Windows' else 'chromedriver'
     return os.path.exists(executable)
     
 
-def download_chromedriver(release=Release.AUTO_DETECT) -> None:
+def download_chromedriver() -> None:
     '''Download released chromedriver'''
-    url = 'https://chromedriver.chromium.org/'
-    if release == Release.AUTO_DETECT: url = url + 'downloads/'
-    print(url)
+    # check current chrome version
+    version = check_system_chrome_version()
+    print(f'Installed Chrome version: {version}\n')
+    # get available release of version
+    release = get_latest_release(version)
+    print(f'Available Chrome release: {release}\n')
 
-    # get link to latest stable release
-    print('Checking available versions.\n')
-    page = requests.get(url)
-    tree = html.fromstring(page.content)
-
-    # select html element based on release
-    if release == Release.AUTO_DETECT:
-        installed_version = check_system_chrome_version()
-        search_str = '.'.join(installed_version.split('.')[:-1])
-        version = re.search(rf'{search_str}.\d+', page.text).group()
-
-    elif release == Release.STABLE:
-        element = tree.xpath('//*[@id="sites-canvas-main-content"]/table/tbody/tr/td/div/div[4]/ul/li[1]/a')[0]
-        version = element.text.split()[-1]
-    
-    elif release == Release.BETA:
-        element = tree.xpath('//*[@id="sites-canvas-main-content"]/table/tbody/tr/td/div/div[4]/ul/li[2]/a')[0]
-        version = element.text.split()[-1]
-    
-    else:
-        raise ValueError('ValueError invalid release option')
-
-    
-    print(f'Version: {version}\n')
-
+    # get system platform in order to determine filename to download
     sys_platform = platform.system()
     
     # Linux
@@ -68,7 +40,7 @@ def download_chromedriver(release=Release.AUTO_DETECT) -> None:
         filename = 'chromedriver_mac64.zip'
 
     # build uri
-    uri = urlparse(f'https://chromedriver.storage.googleapis.com/{version}/')
+    uri = urlparse(f'https://chromedriver.storage.googleapis.com/{release}/')
     uri = uri._replace(path=uri.path+filename)
 
     # build url from uri
@@ -84,6 +56,7 @@ def download_chromedriver(release=Release.AUTO_DETECT) -> None:
     # download zip file
     print(f'Downloading: {url}\n')
     reply = requests.get(url)
+    assert reply.status_code == 200
     open(filename, 'wb').write(reply.content)
     print('Download complete.\n')
 
@@ -117,15 +90,34 @@ def check_system_chrome_version() -> str:
         except:
             cmd = 'dir /B/AD "C:\Program Files\Google\Chrome\Application\"|findstr /R /C:"^[0-9].*\..*[0-9]$"'
             version = subprocess.check_output(cmd, shell=True).decode().strip()
+
+        # get the latest version from results
+        version = version.split()[-1]
+
     # Linux/Mac
     else:
         cmd = 'google-chrome --version'
-        version = os.popen(cmd).read().strip().split()[-1]
+        result = os.popen(cmd).read()
 
+        # if no results, try chromium browser
+        if not result:
+            cmd = 'chromium-browser --version'
+            result = os.popen(cmd).read()
+
+        version = result.strip().split()[-1]
+
+    # return version string to caller
     return version
 
 
+def get_latest_release(version:str) -> str:
+    main_version = version.split('.')[0]
+    url = f'https://chromedriver.storage.googleapis.com/LATEST_RELEASE_{main_version}'
+    reply = requests.get(url)
+    assert reply.status_code == 200
+    latest_relase = reply.text
+    return latest_relase 
+
+
 if __name__ == '__main__':
-    print('Installed Chrome version:', check_system_chrome_version())
     download_chromedriver()
-    
